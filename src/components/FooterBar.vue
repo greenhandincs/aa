@@ -45,7 +45,7 @@ export default {
     </div>
     <div class="foot-box" :class="{ active: activeBtnHere === 2 }" @click="toPage(2)">
       <div class="foot-view"><i class="el-icon-map-location"></i></div>
-      <div class="foot-text">地图</div>
+      <div class="foot-text">餐厅</div>
     </div>
     <div class="foot-box" @click="toPage(0)">
       <!-- <img class="add-btn" src="/imgs/add.png" alt=""> -->
