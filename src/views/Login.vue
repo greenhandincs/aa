@@ -2,7 +2,8 @@
     <div id="app">
         <div class="login-container">
             <div class="header">
-                <div class="header-back-btn"></div>
+                <div class="header-back-btn" @click="goBack"><i class="el-icon-arrow-left"></i></div>
+                <!-- <div class="header-back-btn"></div> -->
                 <div class="header-title">手机号码快捷登录&nbsp;&nbsp;&nbsp;</div>
             </div>
             <div class="content">

@@ -41,6 +41,7 @@
     line-height: 20px;
 }
 .sort-bar {
+    padding-top: 50px;
     display: flex;
     justify-content: space-around;
     height: 6%;
@@ -53,7 +54,7 @@
     font-size: 12px;
 }
 .shop-list{
-    height: 87%;
+    height: 77%;
     background-color: #f1f1f1;
     overflow-y: auto;
 }
@@ -78,7 +79,7 @@
 }
 .shop-title {
     font-weight: bold;
-    font-size: 14px;
+    font-size: 14px !important;
 }
 .shop-rate {
     display: flex;
@@ -91,7 +92,7 @@
     justify-content: space-between;
 }
 .shop-item {
-    line-height: 20px;
+    line-height: 15px;
     align-items: center;
 }
 .shop-address{

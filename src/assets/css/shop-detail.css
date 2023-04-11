@@ -4,7 +4,7 @@
 }
 
 .top-bar {
-    height: 60px;
+    height: 50px;
 }
 
 .header {
@@ -45,7 +45,7 @@
 .shop-title {
     font-size: 20px;
     font-weight: bold;
-    margin: 5px 0;
+    padding: 5px 0;
 }
 
 .shop-rate {
@@ -61,6 +61,7 @@
 
 .shop-info-box {
     padding: 0 10px;
+    background-color: white;
 }
 
 .shop-rank {
@@ -133,102 +134,6 @@
     font-size: 12px;
     text-align: right;
 }
-
-.shop-voucher {
-    padding: 10px;
-}
-
-.voucher-icon {
-    display: inline-block;
-    line-height: 16px;
-    background-color: #f5a966;
-    color: white;
-    padding: 0 4px 2px 4px;
-}
-
-.voucher-box {
-    background-color: #fff1f1;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    margin: 10px 0;
-}
-
-.voucher-circle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 80px;
-}
-
-.voucher-b{
-    height: 10px;
-    width: 10px;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
-.voucher-left {
-    flex-grow: 1;
-    margin-left: 15px;
-}
-
-.voucher-right {
-    margin-right: 15px;
-}
-
-.voucher-title, .voucher-subtitle, .voucher-price {
-    padding: 5px 0;
-}
-
-.voucher-title {
-    font-weight: bold;
-}
-
-.voucher-subtitle {
-    color: #82848a;
-}
-
-.voucher-price {
-    color: #F63;
-    display: flex;
-    align-items: center;
-}
-
-.voucher-price div {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.voucher-price span {
-    margin-left: 10px;
-    font-size: 10px;
-    padding: 0 5px;
-    line-height: 10px;
-    background-color: #fce5e5;
-}
-
-.voucher-btn {
-    background-color:  #79bbff;
-    color: white;
-    font-size: 14px;
-    line-height: 30px;
-    width: 65px;
-    text-align: center;
-    border-radius: 15px;
-}
-.seckill-box{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-size: 12px;
-    padding: 15px 0 0 0;
-}
-.seckill-box div{
-    font-size: 12px;
-}
 .disable-btn{
     background-color: #adacab;
 }
@@ -250,6 +155,15 @@
 }
 .shop-comments {
     padding: 10px;
+}
+.menu{
+    padding: 10px;
+    background-color: white;
+}
+.menu-img{
+    padding-left: 10px;
+    /* height: 50px; */
+    text-align: center;
 }
 .comments-head {
     display: flex;
