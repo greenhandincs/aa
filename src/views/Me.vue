@@ -66,7 +66,9 @@
 </template>
   
 <script>
-import axios from 'axios';
+import axios from '../plugins/axios-0.18.0';
+import '../assets/js/common';
+
 export default ({
     data() {
         return {
@@ -85,14 +87,14 @@ export default ({
         }
     },
     created() {
-        // this.queryUser();
+        this.queryUser();
     },
     methods: {
         load() {
             this.count += 2;
         },
         queryBlogs() {
-            axios.get("/blog/of/me")
+            axios.get(this.GLOBAL.serverSrc + "/blog/of/me")
                 .then(({ data }) => this.blogs = data)
                 .catch(this.$message.error)
         },
@@ -102,7 +104,7 @@ export default ({
                 this.params.minTime = new Date().getTime() + 1;
             }
             let { minTime, offset: os } = this.params;
-            axios.get("/blog/of/follow", {
+            axios.get(this.GLOBAL.serverSrc + "/blog/of/follow", {
                 params: { offset: os, lastId: minTime || new Date().getTime() + 1 }
             })
                 .then(({ data }) => {
@@ -118,6 +120,9 @@ export default ({
         },
         queryUser() {
             // 查询用户信息
+            var obj = sessionStorage.getItem("token")
+            console.log(obj) 
+            // console.log(sessionStorage.getItem("1")) 
             axios.get("/user/me")
                 .then(({ data }) => {
                     // 保存用户
@@ -128,7 +133,8 @@ export default ({
                     this.queryBlogs();
                 })
                 .catch(err => {
-                    location.href = "login.html"
+                    // location.href = "login.html"
+                    this.$router.push('/login');
 
                 })
         },
@@ -136,7 +142,7 @@ export default ({
             history.back();
         },
         queryUserInfo() {
-            axios.get("/user/info/" + this.user.id)
+            axios.get(this.GLOBAL.serverSrc + "/user/info/" + this.user.id)
                 .then(({ data }) => {
                     if (!data) {
                         return
@@ -154,7 +160,7 @@ export default ({
             location.href = 'info-edit.html'
         },
         logout() {
-            axios.post("/user/logout")
+            axios.post(this.GLOBAL.serverSrc + "/user/logout")
                 .then(() => {
                     // 清理session
                     sessionStorage.removeItem("token")
@@ -169,7 +175,7 @@ export default ({
             }
         },
         addLike(b) {
-            axios.put("/blog/like/" + b.id)
+            axios.put(this.GLOBAL.serverSrc + "/blog/like/" + b.id)
                 .then(({ data }) => {
                     this.queryBlogById(b);
                 })
@@ -178,7 +184,7 @@ export default ({
                 })
         },
         queryBlogById(b) {
-            axios.get("/blog/" + b.id)
+            axios.get(this.GLOBAL.serverSrc + "/blog/" + b.id)
                 .then(({ data }) => {
                     b.liked = data.liked;
                     b.isLike = data.isLike;

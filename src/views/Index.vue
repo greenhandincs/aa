@@ -14,7 +14,7 @@
                 <div class="type-view"><img :src="'/imgs/' + t.icon" alt=""></div>
                 <div class="type-text">{{ t.name }}</div>
             </div> -->
-            <el-carousel :interval="5000" arrow="always" height="160px">
+            <el-carousel :interval="5000" arrow="hover" height="160px" :autoplay="false">
 
                 <el-carousel-item v-for="item in tubox" :key="item.id">
                     <img :src="item.tu" class="tu" style="object-fit: scale-down; width: 100%; height: 100%;">
@@ -32,15 +32,16 @@
                         {{ b.liked }}
                     </div>
                 </div>
-                <div class="blog-img" @click="toBlogDetail(b)"><img :src="require('../assets/' + b.img)" alt=""></div>
                 <div class="blog-title">{{ b.title }}</div>
+                <div class="blog-img" @click="toBlogDetail(b)"><img :src="require('../assets' + b.img)" alt=""></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import axios from '../plugins/axios-0.18.0';
 export default {
     data() {
         return {
@@ -56,28 +57,28 @@ export default {
             types: [], // 类型列表
             blogs: [
                 {
-                    img: "img/blog1.jpg",
+                    img: "/img/blog1.jpg",
                     title: "kk餐厅卤肉饭",
                     name: "hewl",
                     isLike: true,
                     liked: 20
                 },
                 {
-                    img: "img/blog2.jpg",
+                    img: "/img/blog2.jpg",
                     title: "kk餐厅卤肉饭",
                     name: "张三",
                     isLike: true,
                     liked: 18
                 },
                 {
-                    img: "img/blog3.jpg",
+                    img: "/img/blog3.jpg",
                     title: "kk餐厅卤肉饭",
                     name: "李四",
                     isLike: true,
                     liked: 10
                 },
                 {
-                    img: "img/blog4.jpg",
+                    img: "/img/blog4.jpg",
                     title: "kk餐厅卤肉饭",
                     name: "王五",
                     isLike: true,
@@ -90,13 +91,13 @@ export default {
     },
     created() {
         // 查询类型
-        console.log("hh");
+        // console.log("hh");
         // this.queryTypes();
-        // this.queryHotBlogsScroll();
+        this.queryHotBlogsScroll();
     },
     methods: {
         queryTypes() {
-            axios.get("http://localhost:8081/shop-type/list")
+            axios.get(this.GLOBAL.serverSrc + "/shop-type/list")
                 .then(({ data }) => {
                     console.log(data);
                     // this.types = data;
@@ -106,18 +107,20 @@ export default {
                 })
         },
         queryHotBlogsScroll() {
-            axios.get("http://localhost:8081/blog/hot?current=" + this.current)
-                .then(({ data }) => {
-                    data.forEach(b => b.img = b.images.split(",")[0]);
+            axios.get(this.GLOBAL.serverSrc + "/blog/hot?current=" + this.current)
+                .then(({ data }) => {                    
+                    // data = data.data
                     console.log(data)
-                    // this.blogs = this.blogs.concat(data);
+                    data.forEach(b => b.img = b.images.split(",")[0]);
+                    this.blogs = this.blogs.concat(data);
+                    // console.log(this.blogs)
                 })
                 .catch(err => {
                     this.$message.error(err)
                 })
         },
         addLike(b) {
-            axios.put("http://localhost:8081/blog/like/" + b.id)
+            axios.put(this.GLOBAL.serverSrc + "/blog/like/" + b.id)
                 .then(({ data }) => {
                     // this.queryBlogById(b)
                     console.log(data)
@@ -127,7 +130,7 @@ export default {
                 })
         },
         queryBlogById(b) {
-            axios.get("http://localhost:8081/blog/" + b.id)
+            axios.get(this.GLOBAL.serverSrc + "/blog/" + b.id)
                 .then(({ data }) => {
                     b.liked = data.liked;
                     b.isLike = data.isLike;

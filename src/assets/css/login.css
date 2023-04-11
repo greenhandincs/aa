@@ -22,7 +22,7 @@
 }
 
 .content{
-    height: 93%;
+    height: 85%;
     background-color: #f7f5f5;
     padding: 10px;
     display: flex;
@@ -31,7 +31,7 @@
 }
 
 .login-form {
-    height: 85%;
+    height: 60%;
 }
 .login-radio {
     height: 15%;
@@ -47,14 +47,14 @@ input[type="radio"] + label::before {
     width: 0.7em;
     height: 0.7em;
     margin-right: .4em;
-    border-radius: 50%;
-    border: 2px solid #F63;
+    /* border-radius: 50%; */
+    border: 2px solid #79bbff;
     text-indent: .15em;
     line-height: 1; 
     padding: .2em;
 }
 input[type="radio"]:checked + label::before {
-    background-color: #F63;
+    background-color: #79bbff;
     background-clip: content-box;
     padding: .2em;
 }

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import ShopList from '../views/ShopList.vue'
 import Message from '../views/Message.vue';
 import Me from '../views/Me.vue';
+import Login from '../views/Login.vue'
  
 // 创建一个路由并暴露出去
 export default new VueRouter({
@@ -27,6 +28,11 @@ export default new VueRouter({
       path: '/me',
       name: 'Me',
       component: Me
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
   ]
 })
