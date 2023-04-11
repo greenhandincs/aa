@@ -13,7 +13,8 @@
             {{ typeName }}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="t in types" :key="t.id" :command="t">
+            <el-dropdown-item :command=0>全部</el-dropdown-item>
+            <el-dropdown-item v-for="t in types" :key="t.id" :command="t.id">
               {{ t.name }}
             </el-dropdown-item>
           </el-dropdown-menu>
@@ -31,7 +32,7 @@
     </div>
     <div class="shop-list" @scroll="onScroll">
       <div class="shop-box" v-for="s in shops" :key="s.id" @click="toDetail(s.id)">
-        <div class="shop-img"><img :src="require('../assets/' + s.images)" alt=""></div>
+        <div class="shop-img"><img :src="s.images" alt=""></div>
         <div class="shop-info">
           <div class="shop-title shop-item">{{ s.name }}</div>
           <div class="shop-rate shop-item">
@@ -65,62 +66,60 @@ export default ({
       isReachBottom: false,
       types: [], // 类型列表
       shops: [
-        {
-          id: 0,
-          images: "img/blog1.jpg",
-          name: "金味祥源快餐",
-          comments: 20,
-          area: "三楼",
-          distance: 500,
-          avgPrice: 30,
-          address: "北区二楼",
-          status: 0,
-          statusStr: '营业中'
-        },
-        {
-          id: 1,
-          images: "img/blog2.jpg",
-          name: "黄山大厦快餐",
-          comments: 10,
-          area: "三楼",
-          distance: 2900,
-          avgPrice: 15,
-          address: "北区一楼",
-          status: 1,
-          statusStr: '暂停营业'
-        },
-        {
-          id: 2,
-          images: "img/blog3.jpg",
-          name: "民族餐厅",
-          comments: 27,
-          area: "二楼",
-          distance: 621,
-          avgPrice: 20,
-          address: "北区二楼半",
-          status: 2,
-          statusStr: '休假中'
-        },
-        {
-          id: 3,
-          images: "img/blog4.jpg",
-          name: "山东百思特",
-          comments: 8,
-          area: "三楼",
-          distance: 120,
-          avgPrice: 12,
-          address: "北区三楼",
-          status: 0,
-          statusStr: '售罄'
-        },
+        // {
+        //   id: 0,
+        //   images: "img/blog1.jpg",
+        //   name: "金味祥源快餐",
+        //   comments: 20,
+        //   area: "三楼",
+        //   distance: 500,
+        //   avgPrice: 30,
+        //   address: "北区二楼",
+        //   status: 0,
+        //   statusStr: '营业中'
+        // },
+        // {
+        //   id: 1,
+        //   images: "img/blog2.jpg",
+        //   name: "黄山大厦快餐",
+        //   comments: 10,
+        //   area: "三楼",
+        //   distance: 2900,
+        //   avgPrice: 15,
+        //   address: "北区一楼",
+        //   status: 1,
+        //   statusStr: '暂停营业'
+        // },
+        // {
+        //   id: 2,
+        //   images: "img/blog3.jpg",
+        //   name: "民族餐厅",
+        //   comments: 27,
+        //   area: "二楼",
+        //   distance: 621,
+        //   avgPrice: 20,
+        //   address: "北区二楼半",
+        //   status: 2,
+        //   statusStr: '休假中'
+        // },
+        // {
+        //   id: 3,
+        //   images: "img/blog4.jpg",
+        //   name: "山东百思特",
+        //   comments: 8,
+        //   area: "三楼",
+        //   distance: 120,
+        //   avgPrice: 12,
+        //   address: "北区三楼",
+        //   status: 0,
+        //   statusStr: '售罄'
+        // },
       ], // 商店列表
       typeName: "餐厅列表",
       params: {
         typeId: 0,
         current: 1,
-        sortBy: "",
-        x: 120.149993, // 经度
-        y: 30.334229 // 纬度
+        // sortBy: "",        
       }
     }
   },
@@ -129,17 +128,28 @@ export default ({
     //   this.params.typeId = util.getUrlParam("type");
     //   this.typeName = util.getUrlParam("name");
     // 查询类型
-    // this.queryTypes();
+    this.queryTypes();
     // 查询商店
-    // this.queryShops();
+    // this.queryAll();
+    this.params.typeId = 0;
+    console.log(this.params);
+    this.queryShops();
   },
   methods: {
-    // getSatusStr(status){
-    //   switch(status){
-    //     case: 0
-
-    //   }
-    // },
+    getSatusStr(status){
+      switch(status){
+        case 0:
+          return '营业中'
+        case 1:
+          return '暂停营业'
+        case 2:
+          return '休假中'
+        case 3:
+          return '停止营业'
+        default:
+          return '未知'
+      }
+    },
     queryTypes() {
       axios.get("/shop-type/list")
         .then(({ data }) => {
@@ -150,7 +160,25 @@ export default ({
           this.$message.error(err)
         })
     },
-    queryShops() {
+    // queryAll(){
+    //   axios.get("/shop/all")
+    //     .then(({ data }) => {
+    //       if (!data) {
+    //         return
+    //       }
+    //       data.forEach(s => {
+    //         s.images = s.images.split(',')[0]
+    //         // Vue.set(s, 'satusStr', getSatusStr(s.status))
+    //       });
+    //       this.shops = this.shops.concat(data);
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //       this.$message.error(err)
+    //     })
+    // },
+    queryShops() {    
+      console.log("调用queryShops");  
       axios.get("/shop/of/type", {
         params: this.params
       })
@@ -158,7 +186,8 @@ export default ({
           if (!data) {
             return
           }
-          data.forEach(s => s.images = s.images.split(',')[0]);
+
+          data.forEach(s => s.images = s.images.split(',')[0]);          
           this.shops = this.shops.concat(data);
         })
         .catch(err => {
@@ -166,8 +195,13 @@ export default ({
           this.$message.error(err)
         })
     },
-    handleCommand(t) {
-      location.href = "/shop-list.html?type=" + t.id + "&name=" + t.name;
+    handleCommand(id) {
+      console.log(id)
+      this.params.typeId = id
+      this.params.current = 0
+      this.shops = []
+      this.queryShops()
+
     },
     sortAndQuery(sortBy) {
       this.params.sortBy = sortBy;
@@ -193,7 +227,7 @@ export default ({
       let scrollHeight = e.target.scrollHeight;
       if (scrollTop + offsetHeight + 1 > scrollHeight && !this.isReachBottom) {
         this.isReachBottom = true
-        console.log("触底")
+        // console.log("触底")
         this.params.current++
         this.queryShops(this.params.current, 5);
       } else {

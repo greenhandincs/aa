@@ -19,10 +19,11 @@
     font-family: Hiragino Sans GB,Arial,Helvetica,"\5B8B\4F53",sans-serif;
 }
 .basic{
+    padding-top: 60px;
     height: 15%;
     display: flex;
     justify-content: space-between;
-    padding: 15px 15px 5px 15px;
+    /* padding: 15px 15px 5px 15px; */
 }
 .basic-icon {
     width: 80px;

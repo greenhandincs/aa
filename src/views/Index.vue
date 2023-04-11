@@ -9,11 +9,7 @@
             </div>
             <div class="header-icon" @click="toPage(4)"><i class="el-icon-user"></i></div>
         </div>
-        <div class="type-list">
-            <!-- <div class="type-box" v-for="t in types" :key="t.id" @click="toShopList(t.id, t.name)">
-                <div class="type-view"><img :src="'/imgs/' + t.icon" alt=""></div>
-                <div class="type-text">{{ t.name }}</div>
-            </div> -->
+        <div class="type-list">            
             <el-carousel :interval="5000" arrow="hover" height="160px" :autoplay="false">
 
                 <el-carousel-item v-for="item in tubox" :key="item.id">
@@ -46,10 +42,14 @@ export default {
     data() {
         return {
             tubox: [
-                { id: 0, tu: require("../assets/img/blog1.jpg") },
-                { id: 1, tu: require("../assets/img/blog2.jpg") },
-                { id: 2, tu: require("../assets/img/blog3.jpg") },
-                { id: 3, tu: require("../assets/img/blog4.jpg") },
+                { id: 0, tu: "http://www.hfut.edu.cn/images/dongshaobo.jpg" },
+                { id: 1, tu: "http://www.hfut.edu.cn/images/pan.png" },
+                { id: 2, tu: "http://xc.hfut.edu.cn/_upload/article/images/f6/f8/875163004c49b8d871cfeb8724b8/097b6aad-cd6f-41b4-b225-19e10baa59f8.jpg"},
+                { id: 3, tu: "http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg" },
+                // { id: 0, tu: require("../assets/img/blog1.jpg") },
+                // { id: 1, tu: require("../assets/img/blog2.jpg") },
+                // { id: 2, tu: require("../assets/img/blog3.jpg") },
+                // { id: 3, tu: require("../assets/img/blog4.jpg") },
 
             ],
             defaultImg: "img/default-icon.png",

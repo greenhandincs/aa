@@ -36,7 +36,7 @@
                 <div>菜单</div>
             </div>
             <div class="menu-img">
-                <img style="width: 75%; height: auto;" src="../assets/img/blog5.jpg">
+                <img style="width: 75%; height: auto;" :src = "require('../assets' + shop.menu)">
             </div>
         </div>
         <div class="shop-divider"></div>
@@ -118,11 +118,9 @@ export default ({
         }
     },
     created() {
-        // 获取参数
-        // let shopId = util.getUrlParam("id");
-        let shopId = this.$route.params.id
-        // console.log(this.$route.params);
-        // 查询酒店信息
+        // 获取参数        
+        let shopId = this.$route.params.id        
+        // 查询信息
         this.queryShopById(shopId);
     },
     methods: {
