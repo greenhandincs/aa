@@ -7,6 +7,7 @@
 
     </div>
     <div class="sort-bar">
+      <!-- 餐厅下拉列表 -->
       <div class="sort-item">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
@@ -20,7 +21,21 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-      <div class="sort-item" @click="sortAndQuery('')">
+      <!-- 状态下拉列表 -->
+      <div class="sort-item">
+        <el-dropdown trigger="click" @command="chooseStatus">
+          <span class="el-dropdown-link">
+            状态<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item :command=0>全部</el-dropdown-item>
+            <el-dropdown-item v-for="stas in stautusType" :key="stas.id" :command="stas.id">
+              {{ stas.name }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <!-- <div class="sort-item" @click="sortAndQuery('')">
         距离 <i class="el-icon-arrow-down el-icon--right"></i>
       </div>
       <div class="sort-item" @click="sortAndQuery('comments')">
@@ -28,7 +43,7 @@
       </div>
       <div class="sort-item" @click="sortAndQuery('score')">
         评分 <i class="el-icon-arrow-down el-icon--right"></i>
-      </div>
+      </div> -->
     </div>
     <div class="shop-list" @scroll="onScroll">
       <div class="shop-box" v-for="s in shops" :key="s.id" @click="toDetail(s.id)">
@@ -65,6 +80,24 @@ export default ({
       // util,
       isReachBottom: false,
       types: [], // 类型列表
+      stautusType: [
+        {
+          id: 1,
+          name: '营业中'
+        },
+        {
+          id: 2,
+          name: '暂停营业'
+        },
+        {
+          id: 3,
+          name: '休假中'
+        },
+        {
+          id: 4,
+          name: '停止营业'
+        },        
+      ],
       shops: [
         // {
         //   id: 0,
@@ -119,6 +152,7 @@ export default ({
       params: {
         typeId: 0,
         current: 1,
+        status: 0
         // sortBy: "",        
       }
     }
@@ -132,19 +166,19 @@ export default ({
     // 查询商店
     // this.queryAll();
     this.params.typeId = 0;
-    console.log(this.params);
+    // console.log(this.params);
     this.queryShops();
   },
   methods: {
-    getSatusStr(status){
-      switch(status){
-        case 0:
-          return '营业中'
+    getSatusStr(status) {
+      switch (status) {
         case 1:
-          return '暂停营业'
+          return '营业中'
         case 2:
-          return '休假中'
+          return '暂停营业'
         case 3:
+          return '休假中'
+        case 4:
           return '停止营业'
         default:
           return '未知'
@@ -160,25 +194,8 @@ export default ({
           this.$message.error(err)
         })
     },
-    // queryAll(){
-    //   axios.get("/shop/all")
-    //     .then(({ data }) => {
-    //       if (!data) {
-    //         return
-    //       }
-    //       data.forEach(s => {
-    //         s.images = s.images.split(',')[0]
-    //         // Vue.set(s, 'satusStr', getSatusStr(s.status))
-    //       });
-    //       this.shops = this.shops.concat(data);
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       this.$message.error(err)
-    //     })
-    // },
-    queryShops() {    
-      console.log("调用queryShops");  
+    queryShops() {
+      // console.log("调用queryShops");
       axios.get("/shop/of/type", {
         params: this.params
       })
@@ -187,7 +204,10 @@ export default ({
             return
           }
 
-          data.forEach(s => s.images = s.images.split(',')[0]);          
+          data.forEach(s => {
+            s.images = s.images.split(',')[0]
+            s['statusStr'] = this.getSatusStr(s.status)
+          });
           this.shops = this.shops.concat(data);
         })
         .catch(err => {
@@ -196,12 +216,19 @@ export default ({
         })
     },
     handleCommand(id) {
-      console.log(id)
+      // console.log(id)
       this.params.typeId = id
       this.params.current = 0
       this.shops = []
       this.queryShops()
 
+    },
+    chooseStatus(id){
+      // this.params.typeId = id
+      this.params.current = 0
+      this.params.status = id
+      this.shops = []
+      this.queryShops()
     },
     sortAndQuery(sortBy) {
       this.params.sortBy = sortBy;
@@ -217,9 +244,8 @@ export default ({
           id: id
         }
       }
-      // location.href = "/shop-detail.html?id="+id
-
-    )},
+      )
+    },
 
     onScroll(e) {
       let scrollTop = e.target.scrollTop;

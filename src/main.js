@@ -6,6 +6,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
 import VueRouter from "vue-router";
 import global_ from './components/Global'//引用文件 
+import filter from '../src/assets/js/filter'
+ 
+for (const key in filter) {
+    Vue.filter(key,filter[key]);
+}
 // import _axios from './plugins/axios'
 // Vue.prototype.$axios = _axios;
 

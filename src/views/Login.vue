@@ -104,13 +104,13 @@ export default ({
                 .then(({ data }) => { 
                     if (data) {
                         // data = data.data
-                        console.log(data)
                         // 保存用户信息到session  
                         sessionStorage.setItem("token", data);
+                        // console.log('登录成功！')
+                        this.$router.push('/me')
                     }
                     // 跳转到首页
                     // location.href = "/index.html"
-                    this.$router.push('/')
                 })
                 .catch(err => this.$message.error(err))
         },
@@ -149,8 +149,7 @@ export default ({
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.login();
-                    console.log('submit!!');
+                    this.login();                    
                 } else {
                     console.log('error submit!!');
                     return false;

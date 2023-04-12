@@ -38,6 +38,7 @@
 <script>
 // import axios from 'axios';
 import axios from '../plugins/axios-0.18.0';
+import '../assets/js/common';
 export default {
     data() {
         return {
@@ -97,7 +98,7 @@ export default {
     },
     methods: {
         queryTypes() {
-            axios.get(this.GLOBAL.serverSrc + "/shop-type/list")
+            axios.get("/shop-type/list")
                 .then(({ data }) => {
                     console.log(data);
                     // this.types = data;
@@ -107,7 +108,7 @@ export default {
                 })
         },
         queryHotBlogsScroll() {
-            axios.get(this.GLOBAL.serverSrc + "/blog/hot?current=" + this.current)
+            axios.get("/blog/hot?current=" + this.current)
                 .then(({ data }) => {                    
                     // data = data.data
                     console.log(data)
@@ -120,17 +121,17 @@ export default {
                 })
         },
         addLike(b) {
-            axios.put(this.GLOBAL.serverSrc + "/blog/like/" + b.id)
+            axios.put("/blog/like/" + b.id)
                 .then(({ data }) => {
-                    // this.queryBlogById(b)
-                    console.log(data)
+                    this.queryBlogById(b)
+                    // console.log(data)
                 })
                 .catch(err => {
                     this.$message.error(err)
                 })
         },
         queryBlogById(b) {
-            axios.get(this.GLOBAL.serverSrc + "/blog/" + b.id)
+            axios.get("/blog/" + b.id)
                 .then(({ data }) => {
                     b.liked = data.liked;
                     b.isLike = data.isLike;

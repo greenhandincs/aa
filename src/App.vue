@@ -23,7 +23,7 @@ export default ({
   },
   beforeUpdate(){
     this.show = true;
-    console.log()
+    console.log('刷新Vue页面！')
     const path = this.$route.path
     if (path === '/')
       this.footerPage = 1;

@@ -29,7 +29,7 @@
 .header-title {
     width: 80%;
     text-align: center;
-    font-size: 18px;
+    font-size: 20px;
     font-family: Hiragino Sans GB, Arial, Helvetica, "\5B8B\4F53", sans-serif;
 }
 
@@ -43,9 +43,9 @@
 }
 
 .shop-title {
-    font-size: 20px;
+    font-size: 20px !important;
     font-weight: bold;
-    padding: 5px 0;
+    padding: 5px 30px 0 0;
 }
 
 .shop-rate {
@@ -213,12 +213,12 @@
 .comment-user {
     font-size: 14px;
 }
-.comment-user span {
-    font-size: 10px;
-    padding: 0 10px;
+.comment-user div {
+    font-size: 8px;
+    padding: 5px 0px;
     border-radius: 8px;
-    background-color: #f7b253;
-    color: white;
+    /* background-color: #f7b253; */
+    /* color: white; */
 }
 .comment-images {
     display: flex;
@@ -231,4 +231,9 @@
     width: 92px;
     border-radius: 5px;
     margin-right: 5px;
+}
+.blog-liked {
+    width: 25%;
+    display: flex;
+    justify-content: flex-end;
 }

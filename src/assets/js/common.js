@@ -1,6 +1,5 @@
 import axios from '../../plugins/axios-0.18.0'
 import router from '../../router/index'
-// let commonURL = "http://192.168.50.115:8081";
 let commonURL = "http://localhost:8081";
 // 设置后台服务地址
 axios.defaults.baseURL = commonURL;
@@ -105,5 +104,5 @@ const util = {
         return num.substring(0, i - 2) + "." + num.substring(i - 2)
       }
     }
-  }
+  },
 }

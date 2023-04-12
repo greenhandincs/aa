@@ -119,10 +119,7 @@ export default ({
                 .catch(e => console.log(e))
         },
         queryUser() {
-            // 查询用户信息
-            var obj = sessionStorage.getItem("token")
-            console.log(obj) 
-            // console.log(sessionStorage.getItem("1")) 
+            // 查询用户信息            
             axios.get("/user/me")
                 .then(({ data }) => {
                     // 保存用户
