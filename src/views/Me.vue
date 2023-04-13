@@ -201,7 +201,8 @@ export default ({
                 })
         },
         toEdit() {
-            location.href = 'info-edit.html'
+            // location.href = 'info-edit.html'
+            this.$router.push('/info-edit')
         },
         logout() {
             axios.post(this.GLOBAL.serverSrc + "/user/logout")
