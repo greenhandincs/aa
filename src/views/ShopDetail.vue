@@ -196,6 +196,7 @@ export default ({
 })
 </script>
 
-<style>
+<!-- <style>
 @import "../assets/css/shop-detail.css";
-@import "../assets/css/main.css";</style>
+@import "../assets/css/main.css";</style> -->
+<style scoped src="../assets/css/shop-detail.css"></style>

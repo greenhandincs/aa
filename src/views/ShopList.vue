@@ -265,11 +265,11 @@ export default ({
 
 </script>
 
-<style>
-/* <link href="./css/shop-list.css" rel="stylesheet">
-  <link href="./css/main.css" rel="stylesheet"> */
+<!-- <style>
 
 @import "../assets/css/shop-list.css";
 @import "../assets/css/main.css";
-</style>
+</style> -->
+
+<style scoped src="../assets/css/shop-list.css"></style>
   

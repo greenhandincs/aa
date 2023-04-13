@@ -165,13 +165,17 @@ export default {
 }
 </script>
 
-<style>
-@import "../assets/css/index.css";
-@import "../assets/css/main.css";
+
+<style scoped src="../assets/css/index.css"></style>
+<style src="../assets/css/main.css"></style>
+<style scoped src="../assets/css/element.css"></style>
+<style scoped>
+/* @import "../assets/css/index.css"; */
+/* @import "../assets/css/main.css"; */
 
 /* @import "../assets/img/blog1.jpg"; */
 /* @import "../css/element.css"; */
-.el-input__inner {
+/* .el-input__inner {
     border-radius: 20px;
 }
 
@@ -181,7 +185,7 @@ export default {
     opacity: 0.75;
     line-height: 300px;
     margin: 0;
-}
+} */
 .tu {
     width: 100%;
     /* height: 100%; */

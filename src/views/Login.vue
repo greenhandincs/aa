@@ -165,8 +165,9 @@ export default ({
 
 </script>
 
-<style>
+<!-- <style>
 @import "../assets/css/main.css";
 @import "../assets/css/login.css";
-</style>
+</style> -->
+<style scoped src="../assets/css/login.css"></style>
   

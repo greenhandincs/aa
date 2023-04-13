@@ -5,6 +5,7 @@ import Message from '../views/Message.vue';
 import Me from '../views/Me.vue';
 import Login from '../views/Login.vue'
 import ShopDetail from '../views/ShopDetail.vue'
+import AddBlog from '../views/AddBlog.vue'
  
 // 创建一个路由并暴露出去
 export default new VueRouter({
@@ -39,6 +40,11 @@ export default new VueRouter({
       path: '/shop-detail:id',
       name: 'ShopDetail',
       component: ShopDetail
+    },
+    {
+      path: '/blog-add',
+      name: 'AddBlog',
+      component: AddBlog
     },
   ]
 })

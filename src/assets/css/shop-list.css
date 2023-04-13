@@ -40,8 +40,7 @@
     font-size: 12px;
     line-height: 20px;
 }
-.sort-bar {
-    padding-top: 50px;
+.sort-bar {    
     display: flex;
     justify-content: space-around;
     height: 6%;

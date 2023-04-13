@@ -13,6 +13,9 @@ export default {
       if(this.activeBtnHere != i){
         this.activeBtnHere = i;
         switch (i) {
+          case 0:
+            this.$router.push('/blog-add');
+            break;
           case 1:               
             this.$router.push('/');
             break;
@@ -47,8 +50,7 @@ export default {
       <div class="foot-view"><i class="el-icon-map-location"></i></div>
       <div class="foot-text">餐厅</div>
     </div>
-    <div class="foot-box" @click="toPage(0)">
-      <!-- <img class="add-btn" src="/imgs/add.png" alt=""> -->
+    <div class="foot-box" @click="toPage(0)">      
       <i class="el-icon-circle-plus" style="color: #79bbff; font-size: 45px"></i>
     </div>
     <div class="foot-box" :class="{ active: activeBtnHere === 3 }" @click="toPage(3)">
