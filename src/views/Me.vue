@@ -7,11 +7,11 @@
         </div>
         <div class="basic">
             <div class="basic-icon">
-                <img :src="require('../assets/' + defaultImg)" alt="">
+                <img :src="require('../assets' + icon)" alt="">
             </div>
             <div class="basic-info">
                 <div class="name">{{ user.nickName }}</div>
-                <span>杭州</span>
+                <span>宣城</span>
                 <div class="edit-btn" @click="toEdit">
                     编辑资料
                 </div>
@@ -122,6 +122,9 @@ export default ({
         followsLabel: function () {
             return '关注(' + this.followCnt + ')';
         },
+        icon(){
+            return this.user.icon ? this.user.icon : '/imgs/icons/default-icon.png'
+        }
     },
     created() {
         this.queryUser();
