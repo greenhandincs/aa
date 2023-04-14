@@ -2,7 +2,7 @@
     <div id="app">
         <!-- <h1>我的</h1> -->
         <div class="header">
-            <div class="header-back-btn" @click="goBack"><i class="el-icon-arrow-left"></i></div>
+            <div class="header-back-btn"></div>
             <div class="header-title">个人主页&nbsp;&nbsp;&nbsp;</div>
         </div>
         <div class="basic">
@@ -11,7 +11,7 @@
             </div>
             <div class="basic-info">
                 <div class="name">{{ user.nickName }}</div>
-                <span>宣城</span>
+                <span>{{ user.city || '未填写地址' }}</span>
                 <div class="edit-btn" @click="toEdit">
                     编辑资料
                 </div>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="introduce">
-            <span v-if="info.introduce"></span>
+            <span v-if="user.introduce">{{ user.introduce }}</span>
             <span v-else>添加个人简介，让大家更好的认识你 <i class="el-icon-edit"></i></span>
         </div>
         <div class="content">
@@ -117,10 +117,10 @@ export default ({
     },
     computed: {
         fansLabel: function () {
-            return '粉丝(' + this.fansCnt + ')';
+            return '粉丝(' + this.user.fans + ')';
         },
         followsLabel: function () {
-            return '关注(' + this.followCnt + ')';
+            return '关注(' + this.user.followee + ')';
         },
         icon(){
             return this.user.icon ? this.user.icon : '/imgs/icons/default-icon.png'
@@ -128,8 +128,8 @@ export default ({
     },
     created() {
         this.queryUser();
-        this.queryFans();
-        this.queryFollow();
+        // this.queryFans();
+        // this.queryFollow();
     },
     methods: {
         load() {
@@ -151,6 +151,7 @@ export default ({
                 .catch(this.$message.error)
         },
         queryFollow() {
+
             axios.get("/follow/of/me")
                 .then(({ data }) => {
                     this.follow = data
@@ -170,12 +171,12 @@ export default ({
         },
         queryUser() {
             // 查询用户信息            
-            axios.get("/user/me")
+            axios.get("/user/me/info")
                 .then(({ data }) => {
                     // 保存用户
                     this.user = data;
-                    // 查询用户详情
-                    this.queryUserInfo();
+                    // // 查询用户详情
+                    // this.queryUserInfo();
                     // 查询用户笔记
                     this.queryBlogs();
                 })
@@ -188,21 +189,21 @@ export default ({
         goBack() {
             history.back();
         },
-        queryUserInfo() {
-            axios.get("/user/info/" + this.user.id)
-                .then(({ data }) => {
-                    if (!data) {
-                        return
-                    }
-                    // 保存用户详情
-                    this.info = data;
-                    // 保存到本地
-                    sessionStorage.setItem("userInfo", JSON.stringify(data))
-                })
-                .catch(err => {
-                    this.$message.error(err);
-                })
-        },
+        // queryUserInfo() {
+        //     axios.get("/user/info/" + this.user.id)
+        //         .then(({ data }) => {
+        //             if (!data) {
+        //                 return
+        //             }
+        //             // 保存用户详情
+        //             this.info = data;
+        //             // 保存到本地
+        //             sessionStorage.setItem("userInfo", JSON.stringify(data))
+        //         })
+        //         .catch(err => {
+        //             this.$message.error(err);
+        //         })
+        // },
         toEdit() {
             // location.href = 'info-edit.html'
             this.$router.push('/info-edit')
@@ -218,14 +219,15 @@ export default ({
                 .catch(this.$message.error)
         },
         handleClick(r) {
+            console.log('handle' + r.name);
             switch (r.name) {
-                case 1:
+                case '1':
                     this.queryBlogs();
                     break
-                case 2:
+                case '2':
                     this.queryFans();
                     break
-                case 3:
+                case '3':
                     this.queryFollow();
                     break
             }

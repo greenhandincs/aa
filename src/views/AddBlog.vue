@@ -15,7 +15,7 @@
             </div>
             <div class="pic-list">
                 <div class="pic-box" v-for="(f, i) in fileList" :key="i">
-                    <img :src="f" alt="">
+                    <img :src="require('../assets' + f)" alt="">
                     <i class="el-icon-close" @click="deletePic(i)"></i>
                 </div>
             </div>
@@ -91,7 +91,7 @@ export default({
             data.images = this.fileList.join(",");
             data.shopId = this.selectedShop.id;
             axios.post("/blog", data)
-                .then(resp => location.href = "/info.html")
+                .then(resp => this.$router.push('/'))
                 .catch(this.$message.error)
         },
         openFileDialog() {

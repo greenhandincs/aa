@@ -6,14 +6,14 @@ const filter = {
             let month = dt.getMonth() + 1;
             let date = dt.getDate();
             return `${year}-${month}-${date}`;
-        } else if(args == 'yyyy-M-d H:m:s'){// yyyy-M-d H:m:s
+        } else if(args == 'yyyy-M-d H:m'){// yyyy-M-d H:m:s
             let year = dt.getFullYear();
             let month = dt.getMonth() + 1;
             let date = dt.getDate();
             let hour = dt.getHours();
             let minute = dt.getMinutes();
             let second = dt.getSeconds();
-            return `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+            return `${year}-${month}-${date} ${hour}:${minute}`;
         } else if(args == 'yyyy-MM-dd') {// yyyy-MM-dd
             let year = dt.getFullYear();
             let month = (dt.getMonth() + 1).toString().padStart(2,'0');

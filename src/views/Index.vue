@@ -9,28 +9,48 @@
             </div>
             <div class="header-icon" @click="toPage(4)"><i class="el-icon-user"></i></div>
         </div>
-        <div class="type-list">            
-            <el-carousel :interval="5000" arrow="hover" height="160px" :autoplay="false">
 
-                <el-carousel-item v-for="item in tubox" :key="item.id">
-                    <img :src="item.tu" class="tu" style="object-fit: scale-down; width: 100%; height: 100%;">
-                </el-carousel-item>
-            </el-carousel>
-        </div>
 
         <div class="blog-list" @scroll="onScroll">
+            <!-- 轮播图 -->
+            <div style="height: 35%; width: 100%; overflow:auto">
+                <el-carousel :interval="5000" arrow="hover" :autoplay="true">
+                    <el-carousel-item v-for="item in tubox" :key="item.id">
+                        <img :src="item.tu" class="tu">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <!-- 点评列表 -->
             <div class="blog-box" v-for="b in blogs" :key="b.id">
-                <div class="blog-foot">
-                    <div class="blog-user-icon"><img :src="require('../assets/' + defaultImg)" alt=""></div>
-                    <div class="blog-user-name">{{ b.name }}</div>
-                    <div class="blog-liked" @click="addLike(b)">
-                        <i class="el-icon-thumb" :class="{ active: b.isLike }"></i>
-                        {{ b.liked }}
+                <div class="author-title reply-father">
+                    <el-avatar class="header-img" :size="40" :src="require('../assets' + icon(b.icon))"></el-avatar>
+                    <div class="author-info">
+                        <span class="author-name">{{ b.name }}</span>
+                        <span class="author-time">{{ b.createTime | formatDate('yyyy-M-d H:m') }}</span>
+                    </div>
+                    <div class="icon-btn" @click="addLike(b)">
+                        <span class="xin">
+                            <i class="el-icon-thumb" :class="{ active: b.isLike }"></i>
+                            {{ b.liked }}
+                        </span>
                     </div>
                 </div>
-                <div class="blog-title">{{ b.title }}</div>
-                <div class="blog-img" @click="toBlogDetail(b)"><img :src="require('../assets' + b.img)" alt=""></div>
+                <div class="blog-info">
+                    <div class="blog-title">{{ b.title }}</div>
+                    <FoldBox :mes2="b.content">
+                        
+                    </FoldBox>
+                    <div class="comment-images">
+                        <div v-for="(_img, i) in b.images" :key="i">
+                            <!-- <img :src="require('../assets' + _img)" alt=""> -->
+                            <el-image lazy style="width: 150px; margin-right: 5px;" fit='contain'
+                                :src="require('../assets' + _img)" :preview-src-list="[require('../assets' + _img)]">
+                            </el-image>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -39,18 +59,23 @@
 // import axios from 'axios';
 import axios from '../plugins/axios-0.18.0';
 import '../assets/js/common';
+import FoldBox from '../components/FoldBox.vue'
 export default {
+    components: {
+        FoldBox
+    },
     data() {
         return {
             tubox: [
                 { id: 0, tu: "http://www.hfut.edu.cn/images/dongshaobo.jpg" },
                 { id: 1, tu: "http://www.hfut.edu.cn/images/pan.png" },
-                { id: 2, tu: "http://xc.hfut.edu.cn/_upload/article/images/f6/f8/875163004c49b8d871cfeb8724b8/097b6aad-cd6f-41b4-b225-19e10baa59f8.jpg"},
+                { id: 2, tu: "http://xc.hfut.edu.cn/_upload/article/images/f6/f8/875163004c49b8d871cfeb8724b8/097b6aad-cd6f-41b4-b225-19e10baa59f8.jpg" },
                 { id: 3, tu: "http://xc.hfut.edu.cn/_upload/article/images/66/ac/6bd138114bbda30d0bbf50ee570c/b083c0f7-b494-4615-a9a5-78967661c494.jpg" },
-                // { id: 0, tu: require("../assets/img/blog1.jpg") },
-                // { id: 1, tu: require("../assets/img/blog2.jpg") },
-                // { id: 2, tu: require("../assets/img/blog3.jpg") },
-                // { id: 3, tu: require("../assets/img/blog4.jpg") },
+
+            ],
+            srcList: [
+                '../assets/img/default-icon.png',
+                '../assets/img/blog1.png',
 
             ],
             defaultImg: "img/default-icon.png",
@@ -58,30 +83,34 @@ export default {
             types: [], // 类型列表
             blogs: [
                 {
-                    img: "/img/blog1.jpg",
+                    images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
                     title: "kk餐厅卤肉饭",
+                    createTime: '2020-1-1',
                     name: "hewl",
                     isLike: true,
                     liked: 20
                 },
                 {
-                    img: "/img/blog2.jpg",
+                    images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
                     title: "kk餐厅卤肉饭",
                     name: "张三",
                     isLike: true,
+                    createTime: '2020-1-1',
                     liked: 18
                 },
                 {
-                    img: "/img/blog3.jpg",
+                    images: ['/img/blog3.jpg', '/img/blog3.jpg',],
                     title: "kk餐厅卤肉饭",
                     name: "李四",
+                    createTime: '2020-1-1',
                     isLike: true,
                     liked: 10
                 },
                 {
-                    img: "/img/blog4.jpg",
+                    images: ['/img/blog3.jpg', '/img/blog3.jpg',],
                     title: "kk餐厅卤肉饭",
                     name: "王五",
+                    createTime: '2020-1-1',
                     isLike: true,
                     liked: 9
                 }
@@ -90,6 +119,9 @@ export default {
 
         }
     },
+    computed: {
+
+    },
     created() {
         // 查询类型
         // console.log("hh");
@@ -97,6 +129,9 @@ export default {
         this.queryHotBlogsScroll();
     },
     methods: {
+        icon(src) {
+            return src ? src : '/imgs/icons/default-icon.png'
+        },
         queryTypes() {
             axios.get("/shop-type/list")
                 .then(({ data }) => {
@@ -109,10 +144,10 @@ export default {
         },
         queryHotBlogsScroll() {
             axios.get("/blog/hot?current=" + this.current)
-                .then(({ data }) => {                    
+                .then(({ data }) => {
                     // data = data.data
-                    console.log(data)
-                    data.forEach(b => b.img = b.images.split(",")[0]);
+                    // console.log(data)
+                    data.forEach(b => b.images = b.images.split(","));
                     this.blogs = this.blogs.concat(data);
                     // console.log(this.blogs)
                 })
@@ -169,25 +204,3 @@ export default {
 <style scoped src="../assets/css/index.css"></style>
 <style src="../assets/css/main.css"></style>
 <style scoped src="../assets/css/element.css"></style>
-<style scoped>
-/* @import "../assets/css/index.css"; */
-/* @import "../assets/css/main.css"; */
-
-/* @import "../assets/img/blog1.jpg"; */
-/* @import "../css/element.css"; */
-/* .el-input__inner {
-    border-radius: 20px;
-}
-
-.el-carousel__item h3 {
-    color: red;
-    font-size: 18px;
-    opacity: 0.75;
-    line-height: 300px;
-    margin: 0;
-} */
-.tu {
-    width: 100%;
-    /* height: 100%; */
-}
-</style>
