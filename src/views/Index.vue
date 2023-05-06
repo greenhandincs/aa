@@ -1,9 +1,9 @@
 <template>
     <div id="app">
         <div class="search-bar">
-            <div class="city-btn">杭州<i class="el-icon-arrow-down"></i></div>
+            <div class="city-btn">宣城<i class="el-icon-arrow-down"></i></div>
             <div class="search-input">
-                <el-input size="mini" placeholder="请输入商户名、地点!">
+                <el-input size="mini" placeholder="吃在工大——校园食堂点评系统">
                     <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 </el-input>
             </div>
@@ -24,7 +24,7 @@
             <div class="blog-box" v-for="b in blogs" :key="b.id">
                 <div class="author-title reply-father">
                     <el-avatar class="header-img" :size="40" :src="require('../assets' + icon(b.icon))"></el-avatar>
-                    <div class="author-info">
+                    <div @click="toUserDetail(b.userId)" class="author-info">
                         <span class="author-name">{{ b.name }}</span>
                         <span class="author-time">{{ b.createTime | formatDate('yyyy-M-d H:m') }}</span>
                     </div>
@@ -38,11 +38,9 @@
                 <div class="blog-info">
                     <div class="blog-title">{{ b.title }}</div>
                     <FoldBox :mes2="b.content">
-                        
                     </FoldBox>
                     <div class="comment-images">
                         <div v-for="(_img, i) in b.images" :key="i">
-                            <!-- <img :src="require('../assets' + _img)" alt=""> -->
                             <el-image lazy style="width: 150px; margin-right: 5px;" fit='contain'
                                 :src="require('../assets' + _img)" :preview-src-list="[require('../assets' + _img)]">
                             </el-image>
@@ -82,40 +80,41 @@ export default {
             isReachBottom: false,
             types: [], // 类型列表
             blogs: [
-                {
-                    images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
-                    title: "kk餐厅卤肉饭",
-                    createTime: '2020-1-1',
-                    name: "hewl",
-                    isLike: true,
-                    liked: 20
-                },
-                {
-                    images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
-                    title: "kk餐厅卤肉饭",
-                    name: "张三",
-                    isLike: true,
-                    createTime: '2020-1-1',
-                    liked: 18
-                },
-                {
-                    images: ['/img/blog3.jpg', '/img/blog3.jpg',],
-                    title: "kk餐厅卤肉饭",
-                    name: "李四",
-                    createTime: '2020-1-1',
-                    isLike: true,
-                    liked: 10
-                },
-                {
-                    images: ['/img/blog3.jpg', '/img/blog3.jpg',],
-                    title: "kk餐厅卤肉饭",
-                    name: "王五",
-                    createTime: '2020-1-1',
-                    isLike: true,
-                    liked: 9
-                }
+                // {
+                //     images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
+                //     title: "kk餐厅卤肉饭",
+                //     createTime: '2020-1-1',
+                //     name: "hewl",
+                //     isLike: true,
+                //     liked: 20
+                // },
+                // {
+                //     images: ['/img/blog1.jpg', '/img/blog1.jpg', '/img/blog1.jpg',],
+                //     title: "kk餐厅卤肉饭",
+                //     name: "张三",
+                //     isLike: true,
+                //     createTime: '2020-1-1',
+                //     liked: 18
+                // },
+                // {
+                //     images: ['/img/blog3.jpg', '/img/blog3.jpg',],
+                //     title: "kk餐厅卤肉饭",
+                //     name: "李四",
+                //     createTime: '2020-1-1',
+                //     isLike: true,
+                //     liked: 10
+                // },
+                // {
+                //     images: ['/img/blog3.jpg', '/img/blog3.jpg',],
+                //     title: "kk餐厅卤肉饭",
+                //     name: "王五",
+                //     createTime: '2020-1-1',
+                //     isLike: true,
+                //     liked: 9
+                // }
             ], // 播客列表
             current: 1,// blog的页码
+            loginUser: {},
 
         }
     },
@@ -127,6 +126,7 @@ export default {
         // console.log("hh");
         // this.queryTypes();
         this.queryHotBlogsScroll();
+        // this.queryLoginUser();
     },
     methods: {
         icon(src) {
@@ -195,7 +195,28 @@ export default {
         },
         toBlogDetail(b) {
             location.href = "/blog-detail.html?id=" + b.id
-        }
+        },
+        toUserDetail(id) {
+            // console.log('详情' + id)
+            if(this.loginUser.id == id)
+                return;
+            this.$router.push({
+                name: 'OtherInfo',
+                params: {
+                    id: id
+                }
+            }
+            )
+        },
+        queryLoginUser() {
+            // 查询用户信息
+            axios.get("/user/me")
+                .then(({ data }) => {
+                    // 保存用户
+                    this.loginUser = data;
+                })
+                .catch(console.log)
+        },
     }
 }
 </script>

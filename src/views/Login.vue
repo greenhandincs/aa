@@ -31,9 +31,9 @@
                         <div style="text-align: center; color: #8c939d;margin: 5px 0">未注册的手机号码验证后自动创建账户</div>
                         <el-button @click="submitForm('ruleForm')"
                             style="width: 100%; background-color:#79bbff; color: #fff;">登录</el-button>
-
-                    </el-form>
-                </div>
+                        </el-form>
+                        <div style="text-align: right; color:#79bbff; margin: 5px 0"><router-link :to="{path: '/login2'}">商家登录</router-link></div>
+                    </div>
                 <div class="login-radio">
                     <div>
                         <input type="radio" name="readed" v-model="radio" value="1">
@@ -107,7 +107,7 @@ export default ({
                         // 保存用户信息到session  
                         sessionStorage.setItem("token", data);
                         // console.log('登录成功！')
-                        this.$router.push('/me')
+                        this.$router.push('/')
                     }
                     // 跳转到首页
                     // location.href = "/index.html"

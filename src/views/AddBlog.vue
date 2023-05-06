@@ -40,7 +40,7 @@
                     <div class="shop-left">关联商户</div>
                 </div>
                 <div class="search-bar">
-                    <div class="city-select">杭州 <i class="el-icon-arrow-down"></i></div>
+                    <div class="city-select">宣城 <i class="el-icon-arrow-down"></i></div>
                     <div class="search-input">
                         <i class="el-icon-search" @click="queryShops"></i>
                         <input v-model="shopName" type="text" placeholder="搜索商户名称">

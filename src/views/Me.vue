@@ -41,7 +41,7 @@
                 <el-tab-pane :label="fansLabel" name="2">
                     <div class="follow-info" v-for="u in fans" :key="u.id">
                         <div class="follow-info-icon" @click="toOtherInfo(u.id)">
-                            <img :src="require('../assets' + u.icon)" alt="">
+                            <img :src="require('../assets' + iconOther(u.icon))" alt="">
                         </div>
                         <div class="follow-info-name">
                             <div class="name">{{ u.nickName }}</div>
@@ -56,7 +56,7 @@
                 <el-tab-pane :label="followsLabel" name="3">
                     <div class="follow-info" v-for="u in follow" :key="u.id">
                         <div class="follow-info-icon" @click="toOtherInfo(u.id)">
-                            <img :src="require('../assets' + u.icon)" alt="">
+                            <img :src="require('../assets' + iconOther(u.icon))" alt="">
                         </div>
                         <div class="follow-info-name">
                             <div class="name">{{ u.nickName }}</div>
@@ -93,24 +93,24 @@ export default ({
             followCnt: 0,
             fansCnt: 0,
             fans: [
-                {
-                    id: 0,
-                    icon: '/imgs/icons/icon1.jpg',
-                    nickName: '我要拿奖'
+                // {
+                //     id: 0,
+                //     icon: '/imgs/icons/icon1.jpg',
+                //     nickName: '我要拿奖'
 
-                },
-                {
-                    id: 1,
-                    icon: '/imgs/icons/default-icon.png',
-                    nickName: '我是张三'
+                // },
+                // {
+                //     id: 1,
+                //     icon: '/imgs/icons/default-icon.png',
+                //     nickName: '我是张三'
 
-                },
-                {
-                    id: 2,
-                    icon: '/imgs/icons/icon1.jpg',
-                    nickName: '我是李四'
+                // },
+                // {
+                //     id: 2,
+                //     icon: '/imgs/icons/icon1.jpg',
+                //     nickName: '我是李四'
 
-                }
+                // }
             ],
             follow: []
         }
@@ -132,11 +132,14 @@ export default ({
         // this.queryFollow();
     },
     methods: {
+        iconOther(icon){
+            return icon ? icon : '/imgs/icons/default-icon.png'
+        },
         load() {
             this.count += 2;
         },
         toOtherInfo(id) {
-            location.href = "/other-info.html?id=" + id
+            // this.$route.push('/other-info',)
         },
         queryFans() {
             axios.get("/follow/fans")
@@ -155,7 +158,7 @@ export default ({
             axios.get("/follow/of/me")
                 .then(({ data }) => {
                     this.follow = data
-                    this.followCnt = data.length
+                    // this.followCnt = data.length
                 })
                 .catch(this.$message.error)
         },

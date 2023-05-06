@@ -10,7 +10,7 @@
             <span class="shop-title">{{ shop.name }}</span>
             <span>{{ shop.statusStr }}</span>
             <div class="shop-rate">
-                <!-- <el-rate disabled v-model="shop.score" text-color="#F63" show-score></el-rate> -->
+                <el-rate disabled v-model="shop.score" text-color="#F63" show-score></el-rate>
                 <span>{{ shop.comments }}条</span>
             </div>
             <div class="shop-rate-info"> 口味:4.9 环境:4.8 服务:4.7 </div>
@@ -63,8 +63,8 @@
                         <div style="display: flex;">
 
                         </div>
-                        <div style="padding: 5px 0; font-size: 14px" v-html="blog.content">
-                            <!-- {{ blog.content }} -->
+                        <div style="padding: 5px 0; font-size: 14px">
+                            {{ blog.content }}
                         </div>
                         <div class="comment-images">
                             <div v-for="(_img, i) in blog.images" :key="i">
